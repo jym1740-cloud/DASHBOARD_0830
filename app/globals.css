@@ -492,6 +492,251 @@ body {
     bottom: 16px;
     right: 16px;
   }
+  
+  /* 모바일 터치 최적화 */
+  button, .button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* 모바일 스크롤 최적화 */
+  .mobile-scroll {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+  }
+  
+  /* 모바일 카드 간격 */
+  .mobile-card {
+    margin-bottom: 1rem;
+  }
+  
+  /* 모바일 다이얼로그 */
+  [data-radix-dialog-content] {
+    margin: 1rem;
+    width: calc(100vw - 2rem);
+    max-width: none;
+  }
+}
+
+/* 터치 디바이스 최적화 */
+@media (hover: none) and (pointer: coarse) {
+  .hover\:shadow-md:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  button:active, .button:active {
+    transform: scale(0.98);
+  }
+}
+
+/* PWA 상태바 색상 및 안전 영역 */
+@media (display-mode: standalone) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* 안전 영역 유틸리티 클래스 */
+.pt-safe-area-inset-top {
+  padding-top: env(safe-area-inset-top, 0);
+}
+
+.pb-safe-area-inset-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.pl-safe-area-inset-left {
+  padding-left: env(safe-area-inset-left, 0);
+}
+
+.pr-safe-area-inset-right {
+  padding-right: env(safe-area-inset-right, 0);
+}
+
+/* 모바일 키보드 처리 */
+@media (max-width: 768px) {
+  /* 키보드가 올라올 때 뷰포트 높이 조정 */
+  .mobile-dialog-content {
+    height: 100vh;
+    height: 100dvh; /* 동적 뷰포트 높이 */
+  }
+  
+  /* 입력 필드 균형잡힌 모바일 최적화 */
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="password"],
+  textarea,
+  select {
+    font-size: 16px !important;
+    transform-origin: left top;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    /* 균형잡힌 패딩 */
+    padding: 14px 16px !important;
+    /* 적절한 높이 */
+    min-height: 52px !important;
+    /* 부드러운 모서리 */
+    border-radius: 10px !important;
+    /* 더 나은 테두리 */
+    border: 1.5px solid #e5e7eb !important;
+    background-color: #ffffff !important;
+    /* 포커스 상태 */
+    &:focus {
+      border-color: #3b82f6 !important;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+      outline: none !important;
+    }
+  }
+  
+  /* Select 트리거 모바일 최적화 */
+  [data-radix-select-trigger] {
+    min-height: 52px !important;
+    padding: 14px 16px !important;
+    border-radius: 10px !important;
+    border: 1.5px solid #e5e7eb !important;
+    font-size: 16px !important;
+    background-color: #ffffff !important;
+  }
+  
+  [data-radix-select-trigger]:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+    outline: none !important;
+  }
+  
+  /* 텍스트에어리어 균형 조정 */
+  textarea {
+    min-height: 100px !important;
+    resize: vertical;
+    line-height: 1.5 !important;
+  }
+  
+  /* 라벨 균형잡힌 스타일 */
+  label {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: #374151 !important;
+    margin-bottom: 6px !important;
+    display: block;
+    line-height: 1.4 !important;
+  }
+  
+  /* 모바일 다이얼로그 스크롤 개선 */
+  .mobile-dialog-scroll {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    /* 스크롤 성능 최적화 */
+    will-change: scroll-position;
+    transform: translateZ(0);
+    /* 스크롤바 스타일링 */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+  }
+  
+  .mobile-dialog-scroll::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .mobile-dialog-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .mobile-dialog-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.5);
+    border-radius: 2px;
+  }
+  
+  .mobile-dialog-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(156, 163, 175, 0.7);
+  }
+  
+  /* 키보드 표시 시 하단 네비게이션 숨김 */
+  @media (max-height: 500px) {
+    .mobile-bottom-nav {
+      display: none;
+    }
+  }
+  
+  /* 모바일 모달 균형잡힌 버튼 */
+  .mobile-modal-button {
+    min-height: 50px !important;
+    padding: 14px 24px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    border-radius: 12px !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .mobile-modal-button:active {
+    transform: scale(0.98) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  /* 모바일 모달 균형잡힌 간격 */
+  .mobile-modal-content {
+    padding: 20px !important;
+  }
+  
+  .mobile-modal-section {
+    margin-bottom: 28px !important;
+  }
+  
+  .mobile-modal-section:last-child {
+    margin-bottom: 0 !important;
+  }
+  
+  /* 모바일 모달 섹션 제목 개선 */
+  .mobile-section-title {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: #1f2937 !important;
+    margin-bottom: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+  
+  .mobile-section-title::before {
+    content: '' !important;
+    width: 6px !important;
+    height: 24px !important;
+    border-radius: 3px !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .mobile-section-title.basic::before {
+    background-color: #3b82f6 !important;
+  }
+  
+  .mobile-section-title.manager::before {
+    background-color: #10b981 !important;
+  }
+  
+  .mobile-section-title.info::before {
+    background-color: #6b7280 !important;
+  }
+  
+  .mobile-section-title.location::before {
+    background-color: #8b5cf6 !important;
+  }
+  
+  .mobile-section-title.cost::before {
+    background-color: #f59e0b !important;
+  }
+  
+  /* 모바일 입력 그룹 간격 */
+  .mobile-input-group {
+    margin-bottom: 20px !important;
+  }
+  
+  .mobile-input-group:last-child {
+    margin-bottom: 0 !important;
+  }
 }
 
 /* ===== Tailwind CSS 변수 ===== */
@@ -549,4 +794,159 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* 모바일 간트차트 스타일 */
+.mobile-gantt-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.mobile-gantt-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-gantt-progress {
+  transition: width 0.3s ease-in-out;
+}
+
+.mobile-gantt-status-dot {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.mobile-gantt-status-dot:hover {
+  transform: scale(1.1);
+}
+
+.mobile-gantt-today-indicator {
+  position: fixed;
+  top: 80px;
+  right: 16px;
+  z-index: 20;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* 모바일 간트차트 탭 애니메이션 */
+.mobile-gantt-tab-content {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 100명 AI 토론자 결과: 혁신적인 모바일 스타일 */
+.enhanced-project-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
+}
+
+.enhanced-project-card:hover {
+  transform: translateY(-2px) scale(1.01);
+}
+
+.priority-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 0 2px 2px 0;
+}
+
+.smart-search-overlay {
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.floating-action-button {
+  position: fixed;
+  bottom: 80px;
+  right: 16px;
+  z-index: 40;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+  transition: all 0.3s ease;
+}
+
+.floating-action-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 40px rgba(59, 130, 246, 0.4);
+}
+
+/* 스크롤바 숨기기 */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* 터치 최적화 */
+.touch-optimized {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+/* 진동 애니메이션 */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* 성공 애니메이션 */
+@keyframes success-bounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.success-bounce {
+  animation: success-bounce 0.6s ease;
+}
+
+/* 로딩 스피너 개선 */
+.loading-spinner {
+  border: 3px solid #f3f4f6;
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

@@ -81,26 +81,26 @@ export default function DashboardHeader({
               alt="PNT 로고" 
               width={64} 
               height={64} 
-              className="h-16 w-16"
+              className="h-12 w-12 sm:h-16 sm:w-16"
             />
             <div>
-              <h1 className="text-2xl font-bold tracking-tight text-gray-900">프로젝트 운영 대시보드</h1>
-              <p className="text-sm text-gray-600">프로젝트 관리 및 운영 현황</p>
+              <h1 className="text-lg sm:text-2xl font-bold tracking-tight text-gray-900">프로젝트 운영 대시보드</h1>
+              <p className="text-xs sm:text-sm text-gray-600 hidden sm:block">프로젝트 관리 및 운영 현황</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="relative">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="relative hidden sm:block">
               <Search className="h-4 w-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <Input 
                 value={query} 
                 onChange={(e) => onQueryChange(e.target.value)} 
                 placeholder="프로젝트 검색..." 
-                className="pl-10 w-80 h-10 border-gray-200 focus:border-blue-500" 
+                className="pl-10 w-48 lg:w-80 h-10 border-gray-200 focus:border-blue-500" 
               />
             </div>
             <Select onValueChange={(v) => onStatusFilterChange(v)} value={statusFilter}>
-              <SelectTrigger className="w-44 h-10 border-gray-200">
-                <SelectValue placeholder="상태별 필터" />
+              <SelectTrigger className="w-32 sm:w-44 h-10 border-gray-200">
+                <SelectValue placeholder="상태" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">전체</SelectItem>
@@ -111,8 +111,9 @@ export default function DashboardHeader({
                 <SelectItem value="완료">완료</SelectItem>
               </SelectContent>
             </Select>
-            <Button onClick={onCreate} className="h-10 px-6 bg-blue-600 hover:bg-blue-700">
-              <Plus className="h-4 w-4 mr-2"/>신규 프로젝트
+            <Button onClick={onCreate} className="h-10 px-3 sm:px-6 bg-blue-600 hover:bg-blue-700">
+              <Plus className="h-4 w-4 sm:mr-2"/>
+              <span className="hidden sm:inline">신규 프로젝트</span>
             </Button>
             <Button 
               onClick={onHelpOpen} 

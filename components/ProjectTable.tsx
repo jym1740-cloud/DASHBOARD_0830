@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Edit3, Calendar, FileText, Trash2, Globe2, TrendingUp, ChevronUp, ChevronDown } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, getCurrentCostRatio, getCostRatioColorClass } from '@/lib/utils';
 import { Project, CostHistory } from '@/lib/types';
 
 interface ProjectTableProps {
@@ -53,22 +53,17 @@ function StatusBadge({ status }: { status: string }) {
   return <Badge className={cn("rounded-full px-3 py-1 text-xs", cls)}>{status}</Badge>;
 }
 
-function CostRatio({ costHistory }: { costHistory?: CostHistory[] }) {
-  if (!costHistory || costHistory.length === 0) {
+function CostRatio({ project }: { project: Project }) {
+  const ratio = getCurrentCostRatio(project);
+  
+  if (ratio === 0) {
     return <span className="text-zinc-400">-</span>;
   }
   
-  // 최근 이력의 투입률 표시 (날짜순 정렬 후 마지막 항목)
-  const latestHistory = costHistory.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0];
-  const ratio = latestHistory.costRatio;
-  
-  let colorClass = "text-green-600";
-  if (ratio > 100) colorClass = "text-red-600 font-semibold";
-  else if (ratio >= 80) colorClass = "text-red-600";
-  else if (ratio >= 70) colorClass = "text-amber-600";
+  const colorClass = getCostRatioColorClass(ratio);
   
   return (
-    <span className={colorClass}>
+    <span className={`${colorClass} ${ratio > 100 ? 'font-semibold' : ''}`}>
       {ratio.toFixed(1)}%
     </span>
   );
@@ -114,15 +109,9 @@ export default function ProjectTable({
           bValue = b.status;
           break;
         case 'costRatio':
-          // 투입률 계산 (최근 이력 기준)
-          const aCostRatio = a.costHistory && a.costHistory.length > 0 
-            ? a.costHistory.sort((x, y) => new Date(y.date).getTime() - new Date(x.date).getTime())[0].costRatio 
-            : 0;
-          const bCostRatio = b.costHistory && b.costHistory.length > 0 
-            ? b.costHistory.sort((x, y) => new Date(y.date).getTime() - new Date(x.date).getTime())[0].costRatio 
-            : 0;
-          aValue = aCostRatio;
-          bValue = bCostRatio;
+          // 통합된 유틸리티 함수 사용
+          aValue = getCurrentCostRatio(a);
+          bValue = getCurrentCostRatio(b);
           break;
         default:
           return 0;
@@ -216,7 +205,7 @@ export default function ProjectTable({
                 <TableCell className="text-xs">{p.pm}</TableCell>
                 <TableCell className="text-xs">{p.salesManagers?.join(", ") || "-"}</TableCell>
                 <TableCell className="text-center">
-                  <CostRatio costHistory={p.costHistory} />
+                  <CostRatio project={p} />
                 </TableCell>
                 <TableCell className="text-xs text-gray-600 max-w-[150px] truncate" title={p.note || ""}>
                   {p.note || "-"}

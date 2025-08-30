@@ -18,6 +18,8 @@ export interface Project {
   country?: string;
   city?: string;
   address?: string;
+  location?: string; // 위치 정보 통합 필드
+  updatedAt?: string; // 마지막 업데이트 시간
   equipmentHistory?: EquipmentHistory[];
   scheduleItems?: ScheduleItem[];
   people?: Person[];

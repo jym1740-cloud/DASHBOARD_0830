@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Move, RotateCcw, X } from "lucide-react";
 import { Project } from "@/lib/types";
+import { getCurrentCostRatioString, getCurrentCostRatio, getCostRatioColor } from "@/lib/utils";
 
 interface WorldMapProps {
   projects: Project[];
@@ -410,7 +411,7 @@ export default function WorldMap({ projects }: WorldMapProps) {
                         {project.name}
                       </div>
                       <div className="text-xs text-gray-500">
-                        {project.pjtNo} • {getLatestCostRatio(project.costHistory)}
+                        {project.pjtNo} • {getCurrentCostRatioString(project)}
                       </div>
                     </div>
                   ))}
@@ -447,9 +448,9 @@ export default function WorldMap({ projects }: WorldMapProps) {
                         <div className="text-xs text-gray-500 mb-1">투입률</div>
                         <div 
                           className="text-sm font-medium"
-                          style={{ color: getLatestCostRatioColor(selectedProject.costHistory) }}
+                          style={{ color: getCostRatioColor(getCurrentCostRatio(selectedProject)) }}
                         >
-                          {getLatestCostRatio(selectedProject.costHistory)}
+                          {getCurrentCostRatioString(selectedProject)}
                         </div>
                       </div>
                       <div>

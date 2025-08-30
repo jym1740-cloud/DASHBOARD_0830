@@ -68,3 +68,9 @@ logs
 # Temporary folders
 tmp/
 temp/
+
+# Backup folders
+backup_*/
+CORE_BACKUP_*.zip
+VERCEL_READY_BACKUP_*/
+VERCEL_READY_FINAL.*
