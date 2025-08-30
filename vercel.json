@@ -1,12 +1,7 @@
 {
   "version": 2,
   "name": "pnt-dashboard",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/next"
-    }
-  ],
+
   "routes": [
     {
       "src": "/sw.js",
@@ -27,16 +22,7 @@
       "dest": "/"
     }
   ],
-  "functions": {
-    "app/page.tsx": {
-      "maxDuration": 30
-    }
-  },
   "regions": ["icn1"],
-  "framework": "nextjs",
-  "installCommand": "npm install",
-  "buildCommand": "npm run build",
-  "outputDirectory": ".next",
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
